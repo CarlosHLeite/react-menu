@@ -5,12 +5,15 @@ import Categories from "./components/Categories";
 import data from "./data/data";
 import { useState } from "react";
 
+const allCategories = ["all", ...new Set(data.map((item) => item.category))];
+
+console.log(allCategories);
 function App() {
   const [menuItems, setMenuItems] = useState(data);
-  const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState(allCategories);
 
   const filterItems = (category) => {
-    if (category === "All") {
+    if (category === "all") {
       setMenuItems(data);
       return;
     }
@@ -24,7 +27,7 @@ function App() {
       <section className="title">
         <h2>Our Menu</h2>
         <div className="underline"></div>
-        <Categories filterItems={filterItems} />
+        <Categories categories={categories} filterItems={filterItems} />
         <Menu items={menuItems} />
       </section>
     </main>
